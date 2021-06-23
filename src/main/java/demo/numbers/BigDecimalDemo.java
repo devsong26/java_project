@@ -8,16 +8,36 @@ import java.util.Arrays;
 
 public class BigDecimalDemo {
 
-    private BigDecimal paramVal, paramValAndScale, paramValAndScaleAndMc, paramValAndMc;
+    private BigDecimal paramVal, paramValAndScale, paramValAndScaleAndMc, paramValAndMc, paramString;
 
     public static void main(String[] args){
         BigDecimalDemo demo = new BigDecimalDemo();
 
+        System.out.println("# operateDouble() ");
+        demo.operateDouble();
+        System.out.println("# ========== #");
+
         System.out.println("# constructors() ");
         demo.constructors();
+        System.out.println("# ========== #");
 
         System.out.println("# methods() ");
         demo.methods();
+        System.out.println("# ========== #");
+    }
+
+    private void operateDouble(){
+        Double d1 = 12345.12347986;
+        Double d2 = 41235.23498705;
+
+        System.out.println("d1 + d2 = " + (d1 + d2)); // d1 + d2 = 53580.358466909995
+
+        BigDecimal bd1 = BigDecimal.valueOf(d1);
+        BigDecimal bd2 = BigDecimal.valueOf(d2);
+
+        System.out.println("bd1 = " + bd1);
+        System.out.println("bd2 = " + bd2);
+        System.out.println(bd1.add(bd2)); // 53580.35846691
     }
 
     /**
@@ -32,10 +52,13 @@ public class BigDecimalDemo {
      *
      * BigDecimal(BigInteger val, MathContext mc)
      * Translates a BigInteger into a BigDecimal rounding according to the context settings.
+     *
+     * BigDecimal(String val)
+     * Translates the string representation of a BigDecimal into a BigDecimal.
      */
     private void constructors(){
         // BigDecimal(BigInteger val)
-        this.paramVal = new BigDecimal(100);
+        this.paramVal = new BigDecimal(BigInteger.valueOf(100));
 
         // BigDecimal(BigInteger unscaledVal, int scale)
         this.paramValAndScale = new BigDecimal(new BigInteger("-123456789"), 3);
@@ -50,10 +73,14 @@ public class BigDecimalDemo {
                 new BigInteger("12"),
                 new MathContext(1, RoundingMode.HALF_UP));
 
-        System.out.println(this.paramVal);
-        System.out.println(this.paramValAndScale);
-        System.out.println(this.paramValAndScaleAndMc);
-        System.out.println(this.paramValAndMc);
+        // BigDecimal(String val)
+        this.paramString = new BigDecimal("100");
+
+        System.out.println("paramVal = " + this.paramVal);
+        System.out.println("paramValAndScale = " + this.paramValAndScale);
+        System.out.println("paramValAndScaleAndMc = " + this.paramValAndScaleAndMc);
+        System.out.println("paramValAndMc = " + this.paramValAndMc);
+        System.out.println("paramString = " + this.paramString);
     }
 
     /**
@@ -86,31 +113,31 @@ public class BigDecimalDemo {
      */
     private void methods(){
         // abs()
-        System.out.println(this.paramValAndScale.abs());
+        System.out.println("abs() = " + this.paramValAndScale.abs());
 
         // add(BigDecimal augend)
-        System.out.println(this.paramVal.add(this.paramValAndScale));
+        System.out.println("add(BigDecimal augend) = " + this.paramVal.add(this.paramValAndScale));
 
         // compareTo(BigDecimal val)
-        System.out.println(this.paramVal.compareTo(this.paramValAndScale));
+        System.out.println("compareTo(BigDecimal val) = " + this.paramVal.compareTo(this.paramValAndScale));
 
         // divide(BigDecimal divisor, int scale, RoundingMode roundingMode)
-        System.out.println(this.paramVal.divide(new BigDecimal("13"), 3, RoundingMode.HALF_UP));
+        System.out.println("divide(BigDecimal divisor, int scale, RoundingMode roundingMode) = " + this.paramVal.divide(new BigDecimal("13"), 3, RoundingMode.HALF_UP));
 
         // divideAndRemainder(BigDecimal divisor)
-        System.out.println(Arrays.toString(this.paramValAndScaleAndMc.divideAndRemainder(this.paramVal)));
+        System.out.println("divideAndRemainder(BigDecimal divisor) = " + Arrays.toString(this.paramValAndScaleAndMc.divideAndRemainder(this.paramVal)));
 
         // max(BigDecimal val)
-        System.out.println(this.paramValAndScaleAndMc.max(this.paramVal));
+        System.out.println("max(BigDecimal val) = " + this.paramValAndScaleAndMc.max(this.paramVal));
 
         // min(BigDecimal val)
-        System.out.println(this.paramValAndScaleAndMc.min(this.paramVal));
+        System.out.println("min(BigDecimal val) = " + this.paramValAndScaleAndMc.min(this.paramVal));
 
         // pow(int n)
-        System.out.println(this.paramVal.pow(2));
+        System.out.println("pow(int n) = " + this.paramVal.pow(2));
 
         // setScale(int newScale, RoundingMode roundingMode)
-        System.out.println(this.paramValAndScaleAndMc.setScale(5, RoundingMode.HALF_DOWN));
+        System.out.println("setScale(int newScale, RoundingMode roundingMode) = " + this.paramValAndScaleAndMc.setScale(5, RoundingMode.HALF_DOWN));
     }
 
 }
